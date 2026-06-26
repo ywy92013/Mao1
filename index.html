@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -58,9 +58,15 @@
             <div class="bg-white rounded-2xl shadow-sm p-6 mb-6 border border-gray-100">
                 <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2 mb-2">
                     <svg class="w-5 h-5 text-history-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    歷史軌跡探索
+                    互動歷史軌跡探索
                 </h2>
-                <p class="text-gray-500 text-sm">按時間順序展開查看詳細的政策、歷史背景與關鍵考點。</p>
+                <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-4 text-xs space-y-1.5 leading-relaxed">
+                    <p class="font-bold">💡 互動操作指南（溫習模式）：</p>
+                    <ol class="list-decimal list-inside space-y-1">
+                        <li>第一步：點擊左側或卡片頭部的 <strong class="bg-amber-200 px-1 rounded">年份按鈕</strong> 揭曉「時期名稱」。</li>
+                        <li>第二步：點擊已顯示的 <strong class="bg-amber-200 px-1 rounded">時期名稱</strong> 解鎖並展開「詳細的政策、歷史背景與關鍵考點」。</li>
+                    </ol>
+                </div>
             </div>
 
             <!-- Vertical Timeline -->
@@ -70,23 +76,42 @@
                 <div class="relative">
                     <!-- Left Year Indicator (Desktop) -->
                     <div class="hidden md:flex absolute -left-36 top-0 w-28 text-right justify-end pr-4 pt-1">
-                        <span class="text-sm font-bold text-history-800 bg-red-50 px-2.5 py-1 rounded-md border border-red-100">1919–1949</span>
+                        <button onclick="revealPeriod(1)" class="text-sm font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-md border border-red-200 transition-all cursor-pointer shadow-sm active:scale-95">1919–1949</button>
                     </div>
                     <!-- Timeline Dot -->
                     <div class="absolute -left-2.5 top-2.5 w-5 h-5 rounded-full bg-red-600 border-4 border-white shadow-sm"></div>
                     
                     <!-- Content Card -->
-                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm hover:shadow-md transition border border-gray-100">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <span class="md:hidden text-xs font-bold text-history-800 bg-red-50 px-2 py-0.5 rounded border border-red-100">1919–1949</span>
-                            <h3 class="text-lg font-bold text-gray-900">新民主主義革命時期 <span class="text-gray-400 font-normal text-sm ml-2">(New Democratic Revolution)</span></h3>
+                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm border border-gray-100">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="revealPeriod(1)" class="md:hidden text-xs font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded border border-red-200 transition-all cursor-pointer active:scale-95">1919–1949</button>
+                                <span class="text-xs text-gray-400">← 點擊年份顯示名稱</span>
+                            </div>
+                            
+                            <div id="period-lock-1" class="text-gray-400 font-medium text-sm py-1 mt-1">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full text-xs">
+                                    🔒 點擊年份解鎖時期
+                                </span>
+                            </div>
+
+                            <div id="period-title-1" onclick="revealDetails(1)" class="hidden cursor-pointer group mt-1">
+                                <h3 class="text-lg font-bold text-gray-900 group-hover:text-history-700 transition flex items-center flex-wrap gap-2">
+                                    <span>新民主主義革命時期 <span class="text-gray-400 font-normal text-sm ml-1">(New Democratic Revolution)</span></span>
+                                    <span class="text-xs bg-amber-100 text-amber-800 font-normal px-2 py-0.5 rounded group-hover:bg-amber-200 transition">👉 點擊查看詳情</span>
+                                </h3>
+                            </div>
                         </div>
-                        <p class="text-gray-600 text-sm mb-4">
-                            此時期為中國共產黨領導的「新民主主義革命」階段，旨在推尋帝國主義、封建主義和官僚資本主義，為建立新中國奠定政治基礎。
-                        </p>
-                        <div class="border-t border-gray-100 pt-3 flex justify-between items-center text-xs text-gray-400">
-                            <span>關鍵詞：反帝反封建、新民主主義</span>
-                            <span class="text-history-600 font-semibold">奠定基石</span>
+
+                        <!-- Details section -->
+                        <div id="period-details-1" class="hidden border-t border-gray-150 pt-4 mt-3 transition-all">
+                            <p class="text-gray-600 text-sm mb-4">
+                                此時期為中國共產黨領導的「新民主主義革命」階段，旨在推尋帝國主義、封建主義和官僚資本主義，為建立新中國奠定政治基礎。
+                            </p>
+                            <div class="border-t border-gray-100 pt-3 flex justify-between items-center text-xs text-gray-400">
+                                <span>關鍵詞：反帝反封建、新民主主義</span>
+                                <span class="text-history-600 font-semibold">奠定基石</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,65 +119,82 @@
                 <!-- Period 2 -->
                 <div class="relative">
                     <div class="hidden md:flex absolute -left-36 top-0 w-28 text-right justify-end pr-4 pt-1">
-                        <span class="text-sm font-bold text-history-800 bg-red-50 px-2.5 py-1 rounded-md border border-red-100">1949–1953</span>
+                        <button onclick="revealPeriod(2)" class="text-sm font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-md border border-red-200 transition-all cursor-pointer shadow-sm active:scale-95">1949–1953</button>
                     </div>
                     <div class="absolute -left-2.5 top-2.5 w-5 h-5 rounded-full bg-red-600 border-4 border-white shadow-sm"></div>
                     
-                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm hover:shadow-md transition border border-gray-100">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <span class="md:hidden text-xs font-bold text-history-800 bg-red-50 px-2 py-0.5 rounded border border-red-100">1949–1953</span>
-                            <h3 class="text-lg font-bold text-gray-900">新民主主義社會 / 過渡時期 <span class="text-gray-400 font-normal text-sm ml-2">(New Democratic Society)</span></h3>
+                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm border border-gray-100">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="revealPeriod(2)" class="md:hidden text-xs font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded border border-red-200 transition-all cursor-pointer active:scale-95">1949–1953</button>
+                                <span class="text-xs text-gray-400">← 點擊年份顯示名稱</span>
+                            </div>
+                            
+                            <div id="period-lock-2" class="text-gray-400 font-medium text-sm py-1 mt-1">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full text-xs">
+                                    🔒 點擊年份解鎖時期
+                                </span>
+                            </div>
+
+                            <div id="period-title-2" onclick="revealDetails(2)" class="hidden cursor-pointer group mt-1">
+                                <h3 class="text-lg font-bold text-gray-900 group-hover:text-history-700 transition flex items-center flex-wrap gap-2">
+                                    <span>新民主主義社會 / 過渡時期 <span class="text-gray-400 font-normal text-sm ml-1">(New Democratic Society)</span></span>
+                                    <span class="text-xs bg-amber-100 text-amber-800 font-normal px-2 py-0.5 rounded group-hover:bg-amber-200 transition">👉 點擊查看詳情</span>
+                                </h3>
+                            </div>
                         </div>
-                        <p class="text-gray-600 text-sm mb-4">
-                            新中國成立初期的過渡社會。此時**富人、民族資產階級和官僚資本主義**依然存在。政府實施了三大關鍵措施，為邁向社會主義下一階段作準備：
-                        </p>
                         
-                        <!-- Toggle Content Accordion -->
-                        <div class="space-y-3 mt-4">
-                            <!-- Measure 1 -->
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 shrink-0">1</span>
-                                    <div>
-                                        <h4 class="font-bold text-sm text-gray-900">土地改革 (1950–1952) <span class="text-gray-500 font-normal text-xs">(Land Reform)</span></h4>
-                                        <p class="text-xs text-gray-600 mt-1">沒收所有地主的農田，將其平均分配給所有農民，徹底消滅封建地主階級。</p>
+                        <div id="period-details-2" class="hidden border-t border-gray-150 pt-4 mt-3 transition-all">
+                            <p class="text-gray-600 text-sm mb-4">
+                                新中國成立初期的過渡社會。此時**富人、民族資產階級和官僚資本主義**依然存在。政府實施了三大關鍵措施，為邁向社會主義下一階段作準備：
+                            </p>
+                            <!-- Toggle Content Accordion -->
+                            <div class="space-y-3 mt-4">
+                                <!-- Measure 1 -->
+                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                    <div class="flex items-start gap-3">
+                                        <span class="bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 shrink-0">1</span>
+                                        <div>
+                                            <h4 class="font-bold text-sm text-gray-900">土地改革 (1950–1952) <span class="text-gray-500 font-normal text-xs">(Land Reform)</span></h4>
+                                            <p class="text-xs text-gray-600 mt-1">沒收所有地主的農田，將其平均分配給所有農民，徹底消滅封建地主階級。</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Measure 2 -->
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 shrink-0">2</span>
-                                    <div>
-                                        <h4 class="font-bold text-sm text-gray-900">鎮壓反革命運動 / 鎮反 (1950–1952) <span class="text-gray-500 font-normal text-xs">(Suppress Counter-Revolutionaries)</span></h4>
-                                        <p class="text-xs text-gray-600 mt-1">打擊目標包括：前國民黨官員及特務、地方土匪和流氓，以穩固新政權。</p>
+                                <!-- Measure 2 -->
+                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                    <div class="flex items-start gap-3">
+                                        <span class="bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 shrink-0">2</span>
+                                        <div>
+                                            <h4 class="font-bold text-sm text-gray-900">鎮壓反革命運動 / 鎮反 (1950–1952) <span class="text-gray-500 font-normal text-xs">(Suppress Counter-Revolutionaries)</span></h4>
+                                            <p class="text-xs text-gray-600 mt-1">打擊目標包括：前國民黨官員及特務、地方土匪和流氓，以穩固新政權。</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Measure 3 -->
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                <div class="flex items-start gap-3">
-                                    <span class="bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 shrink-0">3</span>
-                                    <div>
-                                        <h4 class="font-bold text-sm text-gray-900">「三反」和「五反」運動 (1951–1952)</h4>
-                                        <div class="grid md:grid-cols-2 gap-3 mt-2">
-                                            <div class="bg-white p-2.5 rounded-lg border border-gray-200">
-                                                <span class="text-xs font-bold text-red-700 block mb-1">「三反」（針對政府內部）</span>
-                                                <ul class="text-xs text-gray-600 list-disc list-inside space-y-0.5">
-                                                    <li>反貪污 (Corruption)</li>
-                                                    <li>反浪費 (Waste)</li>
-                                                    <li>反官僚主義 (Bureaucracy)</li>
-                                                </ul>
-                                            </div>
-                                            <div class="bg-white p-2.5 rounded-lg border border-gray-200">
-                                                <span class="text-xs font-bold text-red-700 block mb-1">「五反」（針對不法資本家）</span>
-                                                <ul class="text-xs text-gray-600 list-disc list-inside space-y-0.5">
-                                                    <li>反行賄 (Bribery)</li>
-                                                    <li>反偷稅漏稅 (Tax evasion)</li>
-                                                    <li>反偷工減料 (Theft of state property)</li>
-                                                    <li>反盜竊國家財產 (Cheating on gov contracts)</li>
-                                                    <li>反盜竊國家經濟情報 (Stealing econ info)</li>
-                                                </ul>
+                                <!-- Measure 3 -->
+                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                    <div class="flex items-start gap-3">
+                                        <span class="bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 shrink-0">3</span>
+                                        <div>
+                                            <h4 class="font-bold text-sm text-gray-900">「三反」和「五反」運動 (1951–1952)</h4>
+                                            <div class="grid md:grid-cols-2 gap-3 mt-2">
+                                                <div class="bg-white p-2.5 rounded-lg border border-gray-200">
+                                                    <span class="text-xs font-bold text-red-700 block mb-1">「三反」（針對政府內部）</span>
+                                                    <ul class="text-xs text-gray-600 list-disc list-inside space-y-0.5">
+                                                        <li>反貪污 (Corruption)</li>
+                                                        <li>反浪費 (Waste)</li>
+                                                        <li>反官僚主義 (Bureaucracy)</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="bg-white p-2.5 rounded-lg border border-gray-200">
+                                                    <span class="text-xs font-bold text-red-700 block mb-1">「五反」（針對不法資本家）</span>
+                                                    <ul class="text-xs text-gray-600 list-disc list-inside space-y-0.5">
+                                                        <li>反行賄 (Bribery)</li>
+                                                        <li>反偷稅漏稅 (Tax evasion)</li>
+                                                        <li>反偷工減料 (Theft of state property)</li>
+                                                        <li>反盜竊國家財產 (Cheating on gov contracts)</li>
+                                                        <li>反盜竊國家經濟情報 (Stealing econ info)</li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -165,48 +207,66 @@
                 <!-- Period 3 -->
                 <div class="relative">
                     <div class="hidden md:flex absolute -left-36 top-0 w-28 text-right justify-end pr-4 pt-1">
-                        <span class="text-sm font-bold text-history-800 bg-red-50 px-2.5 py-1 rounded-md border border-red-100">1953–1956</span>
+                        <button onclick="revealPeriod(3)" class="text-sm font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-md border border-red-200 transition-all cursor-pointer shadow-sm active:scale-95">1953–1956</button>
                     </div>
                     <div class="absolute -left-2.5 top-2.5 w-5 h-5 rounded-full bg-red-600 border-4 border-white shadow-sm"></div>
                     
-                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm hover:shadow-md transition border border-gray-100">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <span class="md:hidden text-xs font-bold text-history-800 bg-red-50 px-2 py-0.5 rounded border border-red-100">1953–1956</span>
-                            <h3 class="text-lg font-bold text-gray-900">社會主義改造時期 <span class="text-gray-400 font-normal text-sm ml-2">(Socialist Transformation)</span></h3>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-4">
-                            核心目標是徹底將中國轉變為**社會主義國家**。其間實施了重大的經濟與政治運動：
-                        </p>
-                        
-                        <div class="space-y-4">
-                            <!-- 1st 5-year plan -->
-                            <div class="bg-blue-50/50 rounded-xl p-4 border border-blue-100">
-                                <h4 class="font-bold text-sm text-blue-900 flex items-center gap-1.5">
-                                    <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-                                    第一個五年計劃 (1953–1957)
-                                </h4>
-                                <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">
-                                    以**重工業**為核心的全面性經濟建設計劃。
-                                </p>
-                                <div class="mt-2 flex flex-wrap gap-2">
-                                    <span class="bg-green-100 text-green-800 text-2xs px-2 py-0.5 rounded font-semibold">極為成功：超額完成目標</span>
-                                    <span class="bg-amber-100 text-amber-800 text-2xs px-2 py-0.5 rounded font-semibold">隱憂：為後續「大躍進」的失敗埋下伏線</span>
-                                </div>
+                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm border border-gray-100">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="revealPeriod(3)" class="md:hidden text-xs font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded border border-red-200 transition-all cursor-pointer active:scale-95">1953–1956</button>
+                                <span class="text-xs text-gray-400">← 點擊年份顯示名稱</span>
                             </div>
 
-                            <!-- Anti-Rightist & Sino-Soviet -->
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                    <h4 class="font-bold text-xs text-gray-900">反右派運動的影響</h4>
-                                    <p class="text-xs text-gray-500 mt-1">
-                                        導致政治氣氛轉趨緊張，知識分子和專業技術人員受到打擊，黨內缺乏不同聲音，民主討論空間縮小。
+                            <div id="period-lock-3" class="text-gray-400 font-medium text-sm py-1 mt-1">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full text-xs">
+                                    🔒 點擊年份解鎖時期
+                                </span>
+                            </div>
+                            
+                            <div id="period-title-3" onclick="revealDetails(3)" class="hidden cursor-pointer group mt-1">
+                                <h3 class="text-lg font-bold text-gray-900 group-hover:text-history-700 transition flex items-center flex-wrap gap-2">
+                                    <span>社會主義改造時期 <span class="text-gray-400 font-normal text-sm ml-1">(Socialist Transformation)</span></span>
+                                    <span class="text-xs bg-amber-100 text-amber-800 font-normal px-2 py-0.5 rounded group-hover:bg-amber-200 transition">👉 點擊查看詳情</span>
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div id="period-details-3" class="hidden border-t border-gray-150 pt-4 mt-3 transition-all">
+                            <p class="text-gray-600 text-sm mb-4">
+                                核心目標是徹底將中國轉變為**社會主義國家**。其間實施了重大的經濟與政治運動：
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <!-- 1st 5-year plan -->
+                                <div class="bg-blue-50/50 rounded-xl p-4 border border-blue-100">
+                                    <h4 class="font-bold text-sm text-blue-900 flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                        第一個五年計劃 (1953–1957)
+                                    </h4>
+                                    <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">
+                                        以**重工業**為核心的全面性經濟建設計劃。
                                     </p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span class="bg-green-100 text-green-800 text-2xs px-2 py-0.5 rounded font-semibold">極為成功：超額完成目標</span>
+                                        <span class="bg-amber-100 text-amber-800 text-2xs px-2 py-0.5 rounded font-semibold">隱憂：為後續「大躍進」的失敗埋下伏線</span>
+                                    </div>
                                 </div>
-                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                    <h4 class="font-bold text-xs text-gray-900">外交孤立與中蘇分裂</h4>
-                                    <p class="text-xs text-gray-500 mt-1">
-                                        1953年前，史達林協助毛澤東。1953年赫魯曉夫上台後，中蘇關係逐漸惡化。加上韓戰（1950–1953）的爆發，資本主義國家對新中國實行嚴密封鎖。
-                                    </p>
+
+                                <!-- Anti-Rightist & Sino-Soviet -->
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                        <h4 class="font-bold text-xs text-gray-900">反右派運動的影響</h4>
+                                        <p class="text-xs text-gray-500 mt-1">
+                                            導致政治氣氛轉趨緊張，知識分子和專業技術人員受到打擊，黨內缺乏不同聲音，民主討論空間縮小。
+                                        </p>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                        <h4 class="font-bold text-xs text-gray-900">外交孤立與中蘇分裂</h4>
+                                        <p class="text-xs text-gray-500 mt-1">
+                                            1953年前，史達林協助毛澤東。1953年赫魯曉夫上台後，中蘇關係逐漸惡化。加上韓戰（1950–1953）的爆發，資本主義國家對新中國實行嚴密封鎖。
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -216,24 +276,42 @@
                 <!-- Period 4 -->
                 <div class="relative">
                     <div class="hidden md:flex absolute -left-36 top-0 w-28 text-right justify-end pr-4 pt-1">
-                        <span class="text-sm font-bold text-history-800 bg-red-50 px-2.5 py-1 rounded-md border border-red-100">1958–1960</span>
+                        <button onclick="revealPeriod(4)" class="text-sm font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-md border border-red-200 transition-all cursor-pointer shadow-sm active:scale-95">1958–1960</button>
                     </div>
                     <div class="absolute -left-2.5 top-2.5 w-5 h-5 rounded-full bg-red-600 border-4 border-white shadow-sm"></div>
                     
-                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm hover:shadow-md transition border border-gray-100">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <span class="md:hidden text-xs font-bold text-history-800 bg-red-50 px-2 py-0.5 rounded border border-red-100">1958–1960</span>
-                            <h3 class="text-lg font-bold text-gray-900">大躍進 / 第二個五年計劃 <span class="text-gray-400 font-normal text-sm ml-2">(Great Leap Forward)</span></h3>
+                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm border border-gray-100">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="revealPeriod(4)" class="md:hidden text-xs font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded border border-red-200 transition-all cursor-pointer active:scale-95">1958–1960</button>
+                                <span class="text-xs text-gray-400">← 點擊年份顯示名稱</span>
+                            </div>
+
+                            <div id="period-lock-4" class="text-gray-400 font-medium text-sm py-1 mt-1">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full text-xs">
+                                    🔒 點擊年份解鎖時期
+                                </span>
+                            </div>
+                            
+                            <div id="period-title-4" onclick="revealDetails(4)" class="hidden cursor-pointer group mt-1">
+                                <h3 class="text-lg font-bold text-gray-900 group-hover:text-history-700 transition flex items-center flex-wrap gap-2">
+                                    <span>大躍進 / 第二個五年計劃 <span class="text-gray-400 font-normal text-sm ml-1">(Great Leap Forward)</span></span>
+                                    <span class="text-xs bg-amber-100 text-amber-800 font-normal px-2 py-0.5 rounded group-hover:bg-amber-200 transition">👉 點擊查看詳情</span>
+                                </h3>
+                            </div>
                         </div>
-                        <p class="text-gray-600 text-sm mb-3">
-                            為了在經濟上力爭上游，快速將中國轉變為強大的社會主義國家，開展了全面性的群眾運動：
-                        </p>
-                        <div class="bg-purple-50/50 p-3.5 rounded-xl border border-purple-100 text-xs text-gray-600">
-                            <ul class="list-disc list-inside space-y-1">
-                                <li><strong>第二個五年計劃 (1958–1962)</strong> 期間強行實施。</li>
-                                <li><strong>涵蓋領域</strong>：農業、工業（特別是鋼鐵等<strong>重工業</strong>）以及商業。</li>
-                                <li><strong>結果</strong>：由於指標過高、瞎指揮和浮誇風，導致嚴重的經濟混亂與民生災難。</li>
-                            </ul>
+
+                        <div id="period-details-4" class="hidden border-t border-gray-150 pt-4 mt-3 transition-all">
+                            <p class="text-gray-600 text-sm mb-3">
+                                為了在經濟上力爭上游，快速將中國轉變為強大的社會主義國家，開展了全面性的群眾運動：
+                            </p>
+                            <div class="bg-purple-50/50 p-3.5 rounded-xl border border-purple-100 text-xs text-gray-600">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li><strong>第二個五年計劃 (1958–1962)</strong> 期間強行實施。</li>
+                                    <li><strong>涵蓋領域</strong>：農業、工業（特別是鋼鐵等<strong>重工業</strong>）以及商業。</li>
+                                    <li><strong>結果</strong>：由於指標過高、瞎指揮和浮誇風，導致嚴重的經濟混亂與民生災難。</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -241,35 +319,53 @@
                 <!-- Period 5 -->
                 <div class="relative">
                     <div class="hidden md:flex absolute -left-36 top-0 w-28 text-right justify-end pr-4 pt-1">
-                        <span class="text-sm font-bold text-history-800 bg-red-50 px-2.5 py-1 rounded-md border border-red-100">1962–1966</span>
+                        <button onclick="revealPeriod(5)" class="text-sm font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-md border border-red-200 transition-all cursor-pointer shadow-sm active:scale-95">1962–1966</button>
                     </div>
                     <div class="absolute -left-2.5 top-2.5 w-5 h-5 rounded-full bg-red-600 border-4 border-white shadow-sm"></div>
                     
-                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm hover:shadow-md transition border border-gray-100">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <span class="md:hidden text-xs font-bold text-history-800 bg-red-50 px-2 py-0.5 rounded border border-red-100">1962–1966</span>
-                            <h3 class="text-lg font-bold text-gray-900">經濟調整時期 <span class="text-gray-400 font-normal text-sm ml-2">(Readjustment Period)</span></h3>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-3">
-                            為挽救大躍進帶來的經濟崩潰而採取的務實調整措施。
-                        </p>
-                        <div class="grid md:grid-cols-3 gap-3">
-                            <div class="bg-gray-50 p-3 rounded-lg text-center border border-gray-100">
-                                <span class="block text-2xs uppercase text-gray-400 font-bold">主要領導人</span>
-                                <span class="text-sm font-bold text-gray-800">劉少奇</span>
+                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm border border-gray-100">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="revealPeriod(5)" class="md:hidden text-xs font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded border border-red-200 transition-all cursor-pointer active:scale-95">1962–1966</button>
+                                <span class="text-xs text-gray-400">← 點擊年份顯示名稱</span>
                             </div>
-                            <div class="bg-gray-50 p-3 rounded-lg text-center border border-gray-100">
-                                <span class="block text-2xs uppercase text-gray-400 font-bold">核心目的</span>
-                                <span class="text-sm font-bold text-gray-800">恢復經濟發展</span>
+
+                            <div id="period-lock-5" class="text-gray-400 font-medium text-sm py-1 mt-1">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full text-xs">
+                                    🔒 點擊年份解鎖時期
+                                </span>
                             </div>
-                            <div class="bg-gray-50 p-3 rounded-lg text-center border border-gray-100">
-                                <span class="block text-2xs uppercase text-gray-400 font-bold">實際成效</span>
-                                <span class="text-sm font-bold text-green-700">非常成功，使經濟重回正軌</span>
+                            
+                            <div id="period-title-5" onclick="revealDetails(5)" class="hidden cursor-pointer group mt-1">
+                                <h3 class="text-lg font-bold text-gray-900 group-hover:text-history-700 transition flex items-center flex-wrap gap-2">
+                                    <span>經濟調整時期 <span class="text-gray-400 font-normal text-sm ml-1">(Readjustment Period)</span></span>
+                                    <span class="text-xs bg-amber-100 text-amber-800 font-normal px-2 py-0.5 rounded group-hover:bg-amber-200 transition">👉 點擊查看詳情</span>
+                                </h3>
                             </div>
                         </div>
-                        <div class="mt-3 bg-red-50 text-red-800 text-xs p-2.5 rounded-lg border border-red-100 font-semibold flex items-center gap-1.5">
-                            <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                            注意（常考點）：此時期的溫和經濟調整，絕對不等同於鄧小平時代的「改革開放」！
+
+                        <div id="period-details-5" class="hidden border-t border-gray-150 pt-4 mt-3 transition-all">
+                            <p class="text-gray-600 text-sm mb-3">
+                                為挽救大躍進帶來的經濟崩潰而採取的務實調整措施。
+                            </p>
+                            <div class="grid md:grid-cols-3 gap-3">
+                                <div class="bg-gray-50 p-3 rounded-lg text-center border border-gray-100">
+                                    <span class="block text-2xs uppercase text-gray-400 font-bold">主要領導人</span>
+                                    <span class="text-sm font-bold text-gray-800">劉少奇</span>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded-lg text-center border border-gray-100">
+                                    <span class="block text-2xs uppercase text-gray-400 font-bold">核心目的</span>
+                                    <span class="text-sm font-bold text-gray-800">恢復經濟發展</span>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded-lg text-center border border-gray-100">
+                                    <span class="block text-2xs uppercase text-gray-400 font-bold">實際成效</span>
+                                    <span class="text-sm font-bold text-green-700">非常成功，使經濟重回正軌</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 bg-red-50 text-red-800 text-xs p-2.5 rounded-lg border border-red-100 font-semibold flex items-center gap-1.5">
+                                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                注意（常考點）：此時期的溫和經濟調整，絕對不等同於鄧小平時代的「改革開放」！
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -277,18 +373,36 @@
                 <!-- Period 6 -->
                 <div class="relative">
                     <div class="hidden md:flex absolute -left-36 top-0 w-28 text-right justify-end pr-4 pt-1">
-                        <span class="text-sm font-bold text-history-800 bg-red-50 px-2.5 py-1 rounded-md border border-red-100">1966–1976</span>
+                        <button onclick="revealPeriod(6)" class="text-sm font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-md border border-red-200 transition-all cursor-pointer shadow-sm active:scale-95">1966–1976</button>
                     </div>
                     <div class="absolute -left-2.5 top-2.5 w-5 h-5 rounded-full bg-red-600 border-4 border-white shadow-sm"></div>
                     
-                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm hover:shadow-md transition border border-gray-100">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <span class="md:hidden text-xs font-bold text-history-800 bg-red-50 px-2 py-0.5 rounded border border-red-100">1966–1976</span>
-                            <h3 class="text-lg font-bold text-gray-900">無產階級文化大革命 <span class="text-gray-400 font-normal text-sm ml-2">(Cultural Revolution)</span></h3>
+                    <div class="bg-white rounded-2xl p-6 ml-6 md:ml-8 shadow-sm border border-gray-100">
+                        <div class="flex flex-col gap-2 mb-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="revealPeriod(6)" class="md:hidden text-xs font-bold text-history-800 bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded border border-red-200 transition-all cursor-pointer active:scale-95">1966–1976</button>
+                                <span class="text-xs text-gray-400">← 點擊年份顯示名稱</span>
+                            </div>
+
+                            <div id="period-lock-6" class="text-gray-400 font-medium text-sm py-1 mt-1">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full text-xs">
+                                    🔒 點擊年份解鎖時期
+                                </span>
+                            </div>
+                            
+                            <div id="period-title-6" onclick="revealDetails(6)" class="hidden cursor-pointer group mt-1">
+                                <h3 class="text-lg font-bold text-gray-900 group-hover:text-history-700 transition flex items-center flex-wrap gap-2">
+                                    <span>無產階級文化大革命 <span class="text-gray-400 font-normal text-sm ml-1">(Cultural Revolution)</span></span>
+                                    <span class="text-xs bg-amber-100 text-amber-800 font-normal px-2 py-0.5 rounded group-hover:bg-amber-200 transition">👉 點擊查看詳情</span>
+                                </h3>
+                            </div>
                         </div>
-                        <p class="text-gray-600 text-sm">
-                            經歷了長達十年的社會、經濟、政治和文化極度動盪時期，使國家的現代化建設進程面臨嚴重挫折。
-                        </p>
+
+                        <div id="period-details-6" class="hidden border-t border-gray-150 pt-4 mt-3 transition-all">
+                            <p class="text-gray-600 text-sm">
+                                經歷了長達十年的社會、經濟、政治和文化極度動盪時期，使國家的現代化建設進程面臨嚴重挫折。
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -507,6 +621,32 @@
             const activeBtn = document.getElementById(`btn-${tabId}`);
             activeBtn.classList.remove('hover:bg-white/10', 'text-white');
             activeBtn.classList.add('bg-amber-500', 'text-history-950', 'shadow');
+        }
+
+        // Timeline Interactivity functions for double-disclosure
+        function revealPeriod(id) {
+            const lockPlaceholder = document.getElementById(`period-lock-${id}`);
+            const periodTitle = document.getElementById(`period-title-${id}`);
+            
+            if (lockPlaceholder && periodTitle) {
+                lockPlaceholder.classList.add('hidden');
+                periodTitle.classList.remove('hidden');
+                periodTitle.classList.add('block');
+            }
+        }
+
+        function revealDetails(id) {
+            const detailsDiv = document.getElementById(`period-details-${id}`);
+            
+            if (detailsDiv) {
+                if (detailsDiv.classList.contains('hidden')) {
+                    detailsDiv.classList.remove('hidden');
+                    detailsDiv.classList.add('block');
+                } else {
+                    detailsDiv.classList.remove('block');
+                    detailsDiv.classList.add('hidden');
+                }
+            }
         }
 
         // Quiz State and Data
